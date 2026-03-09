@@ -22,3 +22,5 @@
   - `git status`: Voir l’état des fichiers et de la branche
   - `git log`: Voir l'historique des commits
     
+## 📄 Lien du google docs : 
+- https://docs.google.com/document/d/1qYLbplkzRDiKs0nri3lKDJiCntuMokoEWMk_zE1cErU/edit?usp=sharing
