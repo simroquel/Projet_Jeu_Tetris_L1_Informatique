@@ -17,7 +17,11 @@
     
 - 🚀 **Enregistrer et ajouter son travail sur GitHub:**
   - `git add .` ➡️ `git commit -m "Description claire de la modification"` ➡️ `git push origin nomdelabranche` : add + commit (local) puis publier la branche sur GitHub
-    
+
+  - 🪄 **Concernant les pull requests:**
+    - `Base`: la branche qui va recevoir les changements
+    - `compare`: La branche qui contient le changement
+    Donc, base devenir une copie de compare 
 - **Autres commandes utiles:**
   - `git status`: Voir l’état des fichiers et de la branche
   - `git log`: Voir l'historique des commits
