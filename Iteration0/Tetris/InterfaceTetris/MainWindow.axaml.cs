@@ -76,57 +76,101 @@ public partial class MainWindow : Window
 
     /* Dessine un rectangle dans le TetrisCanvas, à la position (x, y), de largeur width, 
     de hauteur height (en pixels) et de couleur couleur. */
-    public void DessinerRectangle(int x, int y, int with, int height, Avalonia.Media.IBrush couleur)
+    private int posX;
+private int posY;
+private int taille = 30;
+
+/* Dessine un rectangle dans le TetrisCanvas, à la position (x, y), de largeur width, 
+de hauteur height (en pixels) et de couleur couleur. */
+public void DessinerRectangle(int x, int y, int with, int height, Avalonia.Media.IBrush couleur)
+{
+    TetrisCanvas.Children.Add(new Avalonia.Controls.Shapes.Rectangle
     {
-        TetrisCanvas.Children.Add(new Avalonia.Controls.Shapes.Rectangle
+        Width = with,
+        Height = height,
+        Fill = couleur,
+        Margin = new Avalonia.Thickness(x, y, 0, 0)
+    });
+}
+
+/* ... */
+public void DemarrerInterface()
+{
+    Console.WriteLine("Démarrage du jeu de Tetris...");
+    
+    TetrisCanvas.Children.Clear();
+    posX = 100;
+    posY = 0;
+}
+
+/* ... */
+public void DroiteInterface()
+{
+    Console.WriteLine("Déplacement à droite");
+
+    posX += taille;
+
+    TetrisCanvas.Children.Clear();
+}
+
+/* ... */
+public void GaucheInterface()
+{
+    Console.WriteLine("Déplacement à gauche");
+
+    posX -= taille;
+
+    TetrisCanvas.Children.Clear();
+}
+
+/* ... */
+public void BasInterface()
+{
+    Console.WriteLine("Déplacement en bas");
+
+    posY += taille;
+
+    TetrisCanvas.Children.Clear();
+}
+
+/* ... */
+public void TombeInterface()
+{
+    Console.WriteLine("Déplacement rapide en bas");
+
+    posY += taille * 5;
+
+    TetrisCanvas.Children.Clear();
+}
+
+/* ... */
+public void RotationDroiteInterface()
+{
+    Console.WriteLine("Rotation à droite");
+
+    TetrisCanvas.Children.Clear();
+}
+
+/* ... */
+public void RotationGaucheInterface()
+{
+    Console.WriteLine("Rotation à gauche");
+
+    TetrisCanvas.Children.Clear();
+}
+public class DessinerCadre
+{
+    public static void cadre(Canvas canvas)
+    {
+        // Dessine le cadre du TetrisCanvas
+        canvas.Children.Add(new Avalonia.Controls.Shapes.Rectangle
         {
-            Width = with,
-            Height = height,
-            Fill = couleur,
-            Margin = new Thickness(x, y, 0, 0) 
+            Width = 200,
+            Height = 400,
+            Stroke = Avalonia.Media.Brushes.Black,
+            StrokeThickness = 2,
+            Margin = new Thickness(0, 0, 0, 0) 
         });
     }
-
-    /* ... */
-    public void DemarrerInterface()
-    {
-        Console.WriteLine("Démarrage du jeu de Tetris à coder...");
-    }
-
-    /* ... */
-    public void DroiteInterface()
-    {
-        Console.WriteLine("Déplacement à droite à coder...");
-    }
-
-    /* ... */
-    public void GaucheInterface()
-    {
-        Console.WriteLine("Déplacement à gauche à coder...");
-    }
-
-    /* ... */
-    public void BasInterface()
-    {
-        Console.WriteLine("Déplacement en bas à coder...");
-    }
-
-    /* ... */
-    public void TombeInterface()
-    {
-        Console.WriteLine("Déplacement rapide en bas à coder...");
-
-    }
-
-    /* ... */
-    public void RotationDroiteInterface()
-    {
-        Console.WriteLine("Rotation à droit à coder...");
-    }
-
-    /* ... */
-    public void RotationGaucheInterface()
-    {
-        Console.WriteLine("Rotation à gauche à coder...");
-    }
+}
 }
