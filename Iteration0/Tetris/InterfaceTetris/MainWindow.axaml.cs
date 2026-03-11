@@ -10,8 +10,9 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using System;
 using Avalonia.Threading;
+using Avalonia.Media;
 // à ajouter à partir de l'itération 1
-//using NoyauTetris;
+using NoyauTetris;
 
 namespace InterfaceTetris;
 
