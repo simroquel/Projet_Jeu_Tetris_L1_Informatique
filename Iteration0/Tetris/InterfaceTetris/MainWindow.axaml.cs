@@ -73,7 +73,27 @@ public partial class MainWindow : Window
             }
         };
     } 
+    //Traduit les couleurs de l'énum en couleurs affichables
+    public IBrush Couleur2Affichable(TetrinoCouleur couleur)
+    {
+        switch (couleur)
+        {
+            case TetrinoCouleur.noir:
+            return Brushes.Black;
 
+            case TetrinoCouleur.rouge:
+            return Brushes.Red;
+
+            case TetrinoCouleur.jaune:
+            return Brushes.Yellow;
+
+            case TetrinoCouleur.bleu:
+            return Brushes.Blue;
+
+            default:
+            return Brushes.White;
+        }
+    }
     /* Dessine un rectangle dans le TetrisCanvas, à la position (x, y), de largeur width, 
     de hauteur height (en pixels) et de couleur couleur. */
     private int posX;
