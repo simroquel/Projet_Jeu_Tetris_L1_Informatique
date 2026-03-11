@@ -1,6 +1,11 @@
 ﻿namespace NoyauTetris;
-
-public class Class1
+// blanc: pas de carré, noir: cadre et tour des carrés, autres: couleurs des tetrinos
+enum TetrinoCouleur
 {
-
+    blanc,
+    noir,
+    rouge,
+    jaune,
+    bleu
 }
+
