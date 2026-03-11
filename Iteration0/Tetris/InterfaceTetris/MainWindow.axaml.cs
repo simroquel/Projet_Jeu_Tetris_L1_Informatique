@@ -21,23 +21,26 @@ public partial class MainWindow : Window
 {
     /* Minuteur qui déclanche régulièrement un évènement. */
     public DispatcherTimer Minuteur;
-    
+    public int TailleCarre = 22;
+    public int LargeurCadre = 12;
+    public int Marge = 40;
+
     public MainWindow()
     {
         InitializeComponent();
         // Défini la taille de la fenêtre à partir des constantes
         Width = 300;
-        Height = 600;
+        Height = 600 ;
         // Définit le texte de InfoText
         InfoText.Text = "Zone de texte";
         // Défini la taille du canvas à partir des constantes
         TetrisCanvas.Width = 200;
-        TetrisCanvas.Height = 400;
+        TetrisCanvas.Height = 400+ Marge*2;
         // Défini la taille des boutons à partir des constantes
         StartButton.Width = 200;
-        StartButton.Height = 30;
+        StartButton.Height = 40+ Marge*2;
         QuitButton.Width = 200;
-        QuitButton.Height = 30; 
+        QuitButton.Height = 40+ Marge*2; 
         // Initialise le minuteur pour faire descendre le tetrino courant toutes les 500 milisecondes
         Minuteur = new DispatcherTimer();
         Minuteur.Interval = TimeSpan.FromMilliseconds(500);
