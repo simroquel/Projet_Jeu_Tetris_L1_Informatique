@@ -8,4 +8,9 @@ public enum TetrinoCouleur
     jaune,
     bleu
 }
+public class JeuTetris
+{
+    public static int largeurGrille = 12;
+    public static int HauteurGrille = 15;
 
+}
