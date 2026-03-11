@@ -173,19 +173,25 @@ public IBrush Couleur2Affichable(TetrinoCouleur couleur)
     {
         Console.WriteLine("Rotation à gauche à coder...");
     }
-public class DessinerCadre
+public void DessinerCadre()
 {
-    public static void cadre(Canvas canvas)
-    {
-        // Dessine le cadre du TetrisCanvas
-        canvas.Children.Add(new Avalonia.Controls.Shapes.Rectangle
-        {
-            Width = 200,
-            Height = 400,
-            Stroke = Avalonia.Media.Brushes.Black,
-            StrokeThickness = 2,
-            Margin = new Thickness(0, 0, 0, 0) 
-        });
-    }
+    int largeur = 300;
+    int hauteur = 600;
+    int epaisseur = 10;
+
+    // Fond blanc
+    DessinerRectangle(0, 0, largeur, hauteur, Brushes.White);
+
+    // Bord gauche
+    DessinerRectangle(0, 0, epaisseur, hauteur, Brushes.Black);
+
+    // Bord droit
+    DessinerRectangle(largeur - epaisseur, 0, epaisseur, hauteur, Brushes.Black);
+
+    // Bord haut
+    DessinerRectangle(0, 0, largeur, epaisseur, Brushes.Black);
+    // Bord bas
+    DessinerRectangle(0, hauteur - epaisseur, largeur, epaisseur, Brushes.Black);
 }
 }
+
