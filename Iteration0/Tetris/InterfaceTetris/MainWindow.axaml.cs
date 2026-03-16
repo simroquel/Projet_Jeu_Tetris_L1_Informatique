@@ -30,7 +30,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         // Défini la taille de la fenêtre à partir des constantes
         Width = 300;
-        Height = 600 ;
+        Height = 600;
         // Définit le texte de InfoText
         InfoText.Text = "Zone de texte";
         // Défini la taille du canvas à partir des constantes
@@ -130,10 +130,10 @@ public IBrush Couleur2Affichable(TetrinoCouleur couleur)
     public void DemarrerInterface()
     {
         Console.WriteLine("Démarrage du jeu de Tetris à coder...");
-        DessinerCarre(0, 0, TetrinoCouleur.rouge);
-        DessinerCarre(22, 22, TetrinoCouleur.jaune);
-        DessinerCarre(44, 44, TetrinoCouleur.bleu);
-
+        DessinerCadre();
+        DessinerCarre(10, 0, TetrinoCouleur.rouge);
+        DessinerCarre(32, 22, TetrinoCouleur.jaune);
+        DessinerCarre(54, 44, TetrinoCouleur.bleu);
 
     }
 
@@ -175,23 +175,20 @@ public IBrush Couleur2Affichable(TetrinoCouleur couleur)
     }
 public void DessinerCadre()
 {
-    int largeur = 300;
-    int hauteur = 600;
+    int largeur = (int)TetrisCanvas.Width;
+    int hauteur = (int)TetrisCanvas.Height;
     int epaisseur = 10;
 
     // Fond blanc
-    DessinerRectangle(0, 0, largeur, hauteur, Brushes.White);
 
     // Bord gauche
-    DessinerRectangle(0, 0, epaisseur, hauteur, Brushes.Black);
+    DessinerRectangle(0, 0, epaisseur, hauteur, Brushes.White);
 
     // Bord droit
-    DessinerRectangle(largeur - epaisseur, 0, epaisseur, hauteur, Brushes.Black);
+    DessinerRectangle(largeur - epaisseur, 0, epaisseur, hauteur, Brushes.White);
 
-    // Bord haut
-    DessinerRectangle(0, 0, largeur, epaisseur, Brushes.Black);
     // Bord bas
-    DessinerRectangle(0, hauteur - epaisseur, largeur, epaisseur, Brushes.Black);
+    DessinerRectangle(0, hauteur - epaisseur, largeur, epaisseur, Brushes.White);
 }
 }
 
