@@ -94,6 +94,9 @@ public IBrush Couleur2Affichable(TetrinoCouleur couleur)
             case TetrinoCouleur.bleu:
             return Brushes.Blue;
 
+            case TetrinoCouleur.gris:
+            return Brushes.Gray;
+
             default:
             return Brushes.White;
         }
