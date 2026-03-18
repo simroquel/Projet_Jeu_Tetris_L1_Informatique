@@ -124,6 +124,13 @@ public IBrush Couleur2Affichable(TetrinoCouleur couleur)
         });
     }
 
+/** 
+Sert à dessiner les carrés du jeu avec un contour noir en prenant comme parametre:
+@param x type int: position x du carré
+@param y type int: position y du carré
+@param couleur type TetrinoCouleur: La couleur qu'on veut donner au carré
+**/
+
 
     public void DessinerCarre(int x, int y, TetrinoCouleur couleur)
     {
