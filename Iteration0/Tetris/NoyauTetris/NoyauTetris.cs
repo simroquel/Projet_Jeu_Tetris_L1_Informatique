@@ -9,6 +9,7 @@ public enum TetrinoCouleur
     jaune,
     bleu
 }
+/** Sert à définir la largeur et la hauteur des carrés */
 public class JeuTetris
 {
     public static int largeurGrille = 12;
