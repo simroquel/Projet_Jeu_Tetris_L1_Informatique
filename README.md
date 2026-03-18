@@ -1,5 +1,5 @@
 # ProjetComplémentDeProg
-## ℹ️ Itération en cours: 0
+## ℹ️ Itération en cours: 2
 ## 👥 Rôles attribués actuels:
 - Mahdi: ...
 - Mouhamed: ...
@@ -27,4 +27,7 @@
   - `git log`: Voir l'historique des commits
     
 ## 📄 Lien du google docs : 
+### Rendu itération 1:
 - https://docs.google.com/document/d/1qYLbplkzRDiKs0nri3lKDJiCntuMokoEWMk_zE1cErU/edit?usp=sharing
+### Rendu itération 2:
+- https://docs.google.com/document/d/1G2NJj8Xxb6gU3pkAN_0i9anhNUvMsaPYfwjFf8hcUsU/edit?usp=sharing
