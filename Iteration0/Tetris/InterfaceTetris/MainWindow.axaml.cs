@@ -21,6 +21,7 @@ public partial class MainWindow : Window
 {
     /* Minuteur qui déclanche régulièrement un évènement. */
     public DispatcherTimer Minuteur;
+    /** Sert à initialiser la largeur et la hauteur des carrés et à définir la taille des pixels des marges*/    
     public int TailleCarre = 22;
     public int LargeurCadre = 12;
     public int Marge = 40;
