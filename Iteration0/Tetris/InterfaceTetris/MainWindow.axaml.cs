@@ -1,7 +1,7 @@
 /**************************************** Fichier MainWindow.axaml.cs
  * Gère l'interface du jeu de Tetris : la fenêtre graphique et 
  * l'ensemble des interactions du jeu.
- * Auteur : ...
+ * Auteur : Le groupe 3MS
  * Version : alpha
  *****************************************/
 
@@ -124,8 +124,10 @@ public IBrush Couleur2Affichable(TetrinoCouleur couleur)
 
     public void DessinerCarre(int x, int y, TetrinoCouleur couleur)
     {
+
+        DessinerRectangle(x, y, TailleCarre, TailleCarre, Couleur2Affichable(TetrinoCouleur.noir));
+        DessinerRectangle(x + 1, y+ 1, TailleCarre -2 , TailleCarre-2, Couleur2Affichable(couleur));
         
-        DessinerRectangle(x, y, TailleCarre, TailleCarre, Couleur2Affichable(couleur) );
     }
 
 
@@ -181,17 +183,17 @@ public void DessinerCadre()
     int largeur = (int)TetrisCanvas.Width;
     int hauteur = (int)TetrisCanvas.Height;
     int epaisseur = 10;
+    IBrush couleurCadre = Couleur2Affichable(TetrinoCouleur.gris);
 
     // Fond blanc
 
     // Bord gauche
-    DessinerRectangle(0, 0, epaisseur, hauteur, Brushes.White);
+    DessinerRectangle(0, 0, epaisseur, hauteur, couleurCadre);
 
     // Bord droit
-    DessinerRectangle(largeur - epaisseur, 0, epaisseur, hauteur, Brushes.White);
+    DessinerRectangle(largeur - epaisseur, 0, epaisseur, hauteur, couleurCadre);
 
     // Bord bas
-    DessinerRectangle(0, hauteur - epaisseur, largeur, epaisseur, Brushes.White);
+    DessinerRectangle(0, hauteur - epaisseur, largeur, epaisseur, couleurCadre);
 }
 }
-
