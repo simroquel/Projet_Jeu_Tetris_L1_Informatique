@@ -38,9 +38,9 @@ public partial class MainWindow : Window
         TetrisCanvas.Height = 400+ Marge*2;
         // Défini la taille des boutons à partir des constantes
         StartButton.Width = 200;
-        StartButton.Height = 40+ Marge*2;
+        StartButton.Height = 35;
         QuitButton.Width = 200;
-        QuitButton.Height = 40+ Marge*2; 
+        QuitButton.Height = 35; 
         // Initialise le minuteur pour faire descendre le tetrino courant toutes les 500 milisecondes
         Minuteur = new DispatcherTimer();
         Minuteur.Interval = TimeSpan.FromMilliseconds(500);
