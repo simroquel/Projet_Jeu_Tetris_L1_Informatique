@@ -3,6 +3,7 @@
 public enum TetrinoCouleur
 {
     blanc,
+    gris,
     noir,
     rouge,
     jaune,
