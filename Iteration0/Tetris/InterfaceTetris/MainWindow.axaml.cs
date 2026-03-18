@@ -189,6 +189,8 @@ Sert à dessiner les carrés du jeu avec un contour noir en prenant comme parame
     {
         Console.WriteLine("Rotation à gauche à coder...");
     }
+    /**Dessine le cadre du terrain de jeu sur le canvas en traçant
+    les bordures gauche, droite et basse avec une épaisseur fixe*/
 public void DessinerCadre()
 {
     int largeur = (int)TetrisCanvas.Width;
