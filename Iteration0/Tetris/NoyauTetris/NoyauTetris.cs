@@ -39,3 +39,21 @@ public class Position
         y = y + 1;
     }
 }
+
+public class Tetrino
+{
+    public static Position[][] TetrinosTab = new Position[][]
+{
+// carre
+    new Position[] { new Position(0, 0), new Position(1, 0),
+    new Position(0, -1), new Position(1, -1) },
+// barre horizontale
+    new Position[] { new Position(0, 0), new Position(1, 0),
+    new Position(2, 0), new Position(3, 0) },
+// barre verticale
+    new Position[] { new Position(0, 0), new Position(0, -1),
+    new Position(0, -2), new Position(0, -3) }
+};
+
+
+}
