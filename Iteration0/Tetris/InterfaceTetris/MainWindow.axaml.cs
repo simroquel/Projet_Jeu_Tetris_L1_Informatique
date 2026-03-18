@@ -77,7 +77,10 @@ public partial class MainWindow : Window
             }
         };
     } 
-    //Traduit les couleurs de l'énum en couleurs affichables
+    /**Traduit les couleurs de l'énum TetrinoCouleur en couleurs affichables
+    @param couleur une couleur de l'énum TetrinoCouleur
+    @return IBrush retrourne une valeur de type IBrush pour dessiner dans le canvas
+    */
 public IBrush Couleur2Affichable(TetrinoCouleur couleur)
     {
         switch (couleur)
