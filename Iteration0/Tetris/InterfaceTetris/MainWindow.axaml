@@ -8,7 +8,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="16">
             <TextBlock Name="InfoText" FontSize="20" HorizontalAlignment="Center" Text="Zone de texte"/>
-            <Canvas Name="TetrisCanvas" Background="#222"/>
+            <Canvas Name="TetrisCanvas" Background="#ffffff"/>
             <Button Name="StartButton" Content="Démarrer" />
             <Button Name="QuitButton" Content="Quitter" />
         </StackPanel>
