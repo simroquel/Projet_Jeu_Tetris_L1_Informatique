@@ -42,18 +42,52 @@ public class Position
 
 public class Tetrino
 {
+    //Indice correspond à la forme choisie (0 ou 1 ou 2)
+    public int Indice;
+    //PositionOrigine correspond à la position de l'origine de la forme dans le repère du jeu
+    public Position PositionOrigine;
+    //la couleur du Tetrino
+    public TetrinoCouleur Couleur;
+    // pour l'aléatoire
+    public static Random rand = new Random();
+    //CouleursTetrinos est le tableau des couleurs possibles d'un Tetrino
+    public static TetrinoCouleur[] CouleursTetrinos = new TetrinoCouleur[]{TetrinoCouleur.rouge, TetrinoCouleur.jaune, TetrinoCouleur.bleu};
+    public Tetrino(int indice, Position position, TetrinoCouleur couleur){
+        Indice = indice;
+        PositionOrigine = position;
+        Couleur = couleur;
+    }
+    /**la forme des Tetrinos*/
     public static Position[][] TetrinosTab = new Position[][]
-{
-// carre
-    new Position[] { new Position(0, 0), new Position(1, 0),
-    new Position(0, -1), new Position(1, -1) },
-// barre horizontale
-    new Position[] { new Position(0, 0), new Position(1, 0),
-    new Position(2, 0), new Position(3, 0) },
-// barre verticale
-    new Position[] { new Position(0, 0), new Position(0, -1),
-    new Position(0, -2), new Position(0, -3) }
-};
+    {
+    // carre
+        new Position[] { new Position(0, 0), new Position(1, 0),
+        new Position(0, -1), new Position(1, -1) },
+    // barre horizontale
+        new Position[] { new Position(0, 0), new Position(1, 0),
+        new Position(2, 0), new Position(3, 0) },
+    // barre verticale
+        new Position[] { new Position(0, 0), new Position(0, -1),
+        new Position(0, -2), new Position(0, -3) }
+    };
 
-
+    /**La Position du Tetrinos totale
+    @return resultat position du Tetrino choisi dans le repère du jeu*/
+    public Position[] Positions()
+    {
+        Position[] forme = TetrinosTab[Indice];
+        Position[] resultat = new Position[forme.Length];
+        for(int i = 0; i <forme.Length; i++)
+        {
+            resultat[i] = new Position(forme[i].x +  PositionOrigine.x, forme[i].y + PositionOrigine.y );
+        }
+        return resultat;
+    }
+    /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position choisie */
+    public void NouveauTetrino()
+    {
+        Indice = rand.Next(TetrinosTab.Length);
+        Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
+        PositionOrigine = new Position(0,0);
+    }
 }
