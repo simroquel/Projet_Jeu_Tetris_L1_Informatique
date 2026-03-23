@@ -1,0 +1,12 @@
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/bin/Debug/net8.0/NoyauTetris.deps.json
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/bin/Debug/net8.0/NoyauTetris.dll
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/bin/Debug/net8.0/NoyauTetris.pdb
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/NoyauTetris.GeneratedMSBuildEditorConfig.editorconfig
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/NoyauTetris.AssemblyInfoInputs.cache
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/NoyauTetris.AssemblyInfo.cs
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/NoyauTetris.csproj.CoreCompileInputs.cache
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/NoyauTetris.sourcelink.json
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/NoyauTetris.dll
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/refint/NoyauTetris.dll
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/NoyauTetris.pdb
+/home/mosmannz/Documents/ProjetComplementDeProg/Iteration0/Tetris/NoyauTetris/obj/Debug/net8.0/ref/NoyauTetris.dll

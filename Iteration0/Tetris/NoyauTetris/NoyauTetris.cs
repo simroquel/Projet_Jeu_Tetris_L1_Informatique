@@ -17,6 +17,9 @@ public class JeuTetris
 
 }
 /** Définit la position d'un carré avec ses positions x et y*/
+
+
+
 public class Position
 {
     public int x;
@@ -40,9 +43,15 @@ public class Position
     }
 }
 
+
+/* 
+Tâche à faire:
+- 
+? TetrinoTab ??
+*/
 public class Tetrino
 {
-    //Indice correspond à la forme choisie (0 ou 1 ou 2)
+    //Indice correspond à la formDans le noyau, définissez une classee choisie (0 ou 1 ou 2)
     public int Indice;
     //PositionOrigine correspond à la position de l'origine de la forme dans le repère du jeu
     public Position PositionOrigine;
@@ -87,7 +96,7 @@ public class Tetrino
     public void NouveauTetrino()
     {
         Indice = rand.Next(TetrinosTab.Length);
-        Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
+        Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.GetLength(0))];
         PositionOrigine = new Position(0,0);
     }
 }
