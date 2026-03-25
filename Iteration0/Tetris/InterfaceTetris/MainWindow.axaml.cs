@@ -25,10 +25,20 @@ public partial class MainWindow : Window
     public int TailleCarre = 22;
     public int LargeurCadre = 12;
     public int Marge = 40;
+    public JeuTetris Jeu;
+    public DispatcherTimer Minuteur;
+    public const int TailleCase = 20;
+    
 
     public MainWindow()
     {
         InitializeComponent();
+        // Initialise le jeu
+        Jeu = new JeuTetris();
+        Minuteur = new DispatcherTimer();
+        Minuteur.Interval = TimeSpan.FromMilliseconds(500);
+        Minuteur.Tick += BasInterface;
+        
         // Défini la taille de la fenêtre à partir des constantes
         Width = 300;
         Height = 600;
@@ -150,31 +160,76 @@ Sert à dessiner les carrés du jeu avec un contour noir en prenant comme parame
         DessinerCarre(10, 0, TetrinoCouleur.rouge);
         DessinerCarre(32, 22, TetrinoCouleur.jaune);
         DessinerCarre(54, 44, TetrinoCouleur.bleu);
+        Jeu = new JeuTetris();
+        Minuteur.Start();
 
     }
+     /* ... */
+    public void DessinerJeu()
+    {
+        TetrisCanvas.Children.Clear();
+        var positions = Jeu.TetrinoCourant.Positions();
 
+         
+        foreach (var pos in positions)
+        {
+            // Ne pas afficher si au-dessus du cadre
+            if (pos.Y < 0) continue;
+            Rectangle rect = new Rectangle
+            {
+                Width = 20,
+                Height = 20,
+                Fill = Brushes.Blue
+            };
+
+            Canvas.SetLeft(rect, pos.X * 20);
+            Canvas.SetTop(rect, pos.Y * 20);
+
+            TetrisCanvas.Children.Add(rect);
+        }
+    }
+    
+      /* Commentaire pour Mahdi: Faire une boucle infino sur les methodes de position  */
+    
     /* ... */
     public void DroiteInterface()
     {
         Console.WriteLine("Déplacement à droite à coder...");
+        if (e.Key == Key.Right)
+        {
+            Droite();
+        }
     }
 
     /* ... */
     public void GaucheInterface()
     {
         Console.WriteLine("Déplacement à gauche à coder...");
+         if (e.Key == Key.Left)
+        {
+            Gauche();
+        }
     }
 
     /* ... */
     public void BasInterface()
     {
         Console.WriteLine("Déplacement en bas à coder...");
+         if (e.Key == Key.Bas)
+        {
+            Bas();
+        }
+
     }
 
     /* ... */
     public void TombeInterface()
     {
         Console.WriteLine("Déplacement rapide en bas à coder...");
+         if (e.Key == Key.Tombe);
+        {
+            Tombe();
+        }
 
     }
 
