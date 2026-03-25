@@ -223,7 +223,7 @@ public class Tetrino
     /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position choisie */
     public void NouveauTetrino()
     {
-        Indice = rand.Next(TetrinosTab.GetLength(0);
+        Indice = rand.Next(TetrinosTab.GetLength(0));
         Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
         PositionOrigine = new Position(0,0);
     }
