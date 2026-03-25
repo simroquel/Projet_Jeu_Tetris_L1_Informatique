@@ -46,6 +46,7 @@ public class JeuTetris
     public void Tombe()
     {
         TetrinoCourant.PositionOrigine.y = HauteurGrille;
+        TetrinoCourant = TetrinoCourant.NouveauTetrino();
     }
 
 
