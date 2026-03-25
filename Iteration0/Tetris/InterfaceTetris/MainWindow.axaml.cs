@@ -1,4 +1,203 @@
-/**************************************** Fichier MainWindow.axaml.cs
+/* Fichier MainWindow.axaml.cs
+ * Gère l'interface du jeu de Tetris : la fenêtre graphique et 
+ * l'ensemble des interactions du jeu.
+ * Auteur : ...
+ * Version : alpha
+ */
+
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using System;
+using Avalonia.Threading;
+using System.Reflection.Metadata;
+using System.Net;
+using System.Text;
+// à ajouter à partir de l'itération 1
+//using NoyauTetris;
+
+namespace InterfaceTetris;
+
+/* Gère la fenêtre principale du jeu de Tetris, et l'ensemble des interactions du jeu. */
+public partial class MainWindow : Window
+{
+    /* Minuteur qui déclanche régulièrement un évènement. */
+    public DispatcherTimer Minuteur;
+    /** Sert à initialiser la largeur et la hauteur des carrés et à définir la taille des pixels des marges*/    
+    public int TailleCarre = 22;
+    public int LargeurCadre = 12;
+    public int Marge = 40;
+    public JeuTetris Jeu;
+    public DispatcherTimer Minuteur;
+    public const int TailleCase = 20;
+    
+
+
+    public MainWindow()
+    {
+        InitializeComponent();
+        // Initialise le jeu
+        Jeu = new JeuTetris();
+        Minuteur = new DispatcherTimer();
+        Minuteur.Interval = TimeSpan.FromMilliseconds(500);
+        Minuteur.Tick += BasInterface;
+
+    DessinerJeu();
+        // Défini la taille de la fenêtre à partir des constantes
+        Width = 300;
+        Height = 600 ;
+        // Définit le texte de InfoText
+        InfoText.Text = "Zone de texte";
+        // Défini la taille du canvas à partir des constantes
+        TetrisCanvas.Width = 200;
+        TetrisCanvas.Height = 400+ Marge*2;
+        // Défini la taille des boutons à partir des constantes
+        StartButton.Width = 200;
+        StartButton.Height = 35;
+        QuitButton.Width = 200;
+        QuitButton.Height = 35; 
+        // Initialise le minuteur pour faire descendre le tetrino courant toutes les 500 milisecondes
+        Minuteur = new DispatcherTimer();
+        Minuteur.Interval = TimeSpan.FromMilliseconds(500);
+        Minuteur.Tick += (s, e) => { BasInterface();};   
+        // détecte le clic sur le bouton Démarrer, déclanche l'évènement Demarrer, puis appelle la méthode DemarrerTetris
+        StartButton.Click += (s, e) => { DemarrerInterface();};
+        // détecte le clic sur le bouton Quitter, déclanche l'évènement Quiter, puis ferme la fenêtre
+        QuitButton.Click += (s, e) => { Close();};
+        // détecte la pression d'une touche du clavier, et déclanche l'évènement correspondant
+        KeyDown += (s, e) =>
+        {
+            // Choix des touches à modifier si besoin (voir la documentation de l'énumération Key)
+            if (e.Key == Key.Left)
+            {
+                GaucheInterface();
+            }
+            else if (e.Key == Key.Right)
+            {
+                DroiteInterface();
+            }
+            else if (e.Key == Key.X)
+            // si vous disposer d'un pavé numérique, choisir Key.PageUp
+            {
+                RotationDroiteInterface();
+            }
+            else if (e.Key == Key.W)
+            // si vous disposer d'un pavé numérique, choisir Key.Home
+            {
+                RotationGaucheInterface();
+            }
+            else if (e.Key == Key.Down)
+            {
+                TombeInterface();
+            }
+        };
+    } 
+
+    /* Dessine un rectangle dans le TetrisCanvas, à la position (x, y), de largeur width, 
+    de hauteur height (en pixels) et de couleur couleur. */
+    public void DessinerRectangle(int x, int y, int with, int height, Avalonia.Media.IBrush couleur)
+    {
+        TetrisCanvas.Children.Add(new Avalonia.Controls.Shapes.Rectangle
+        {
+            Width = with,
+            Height = height,
+            Fill = couleur,
+            Margin = new Thickness(x, y, 0, 0)
+        });
+    }
+
+    /* ... */
+    public void DemarrerInterface()
+    {
+        Console.WriteLine("Démarrage du jeu de Tetris à coder...");
+        Jeu = new JeuTetris();
+        Minuteur.Start();
+    }
+
+    /* ... */
+
+
+    public void DessinerJeu()
+    {
+        TetrisCanvas.Children.Clear();
+        var positions = Jeu.TetrinoCourant.Positions();
+
+         
+        foreach (var pos in positions)
+        {
+            // Ne pas afficher si au-dessus du cadre
+            if (pos.Y < 0) continue;
+            Rectangle rect = new Rectangle
+            {
+                Width = 20,
+                Height = 20,
+                Fill = Brushes.Blue
+            };
+
+            Canvas.SetLeft(rect, pos.X * 20);
+            Canvas.SetTop(rect, pos.Y * 20);
+
+            TetrisCanvas.Children.Add(rect);
+        }
+    }
+      /* Commentaire pour Mahdi: Faire une boucle infino sur les methodes de position  */
+    public void DroiteInterface()
+    {
+        Console.WriteLine("Déplacement à droite à coder...");
+        if (e.Key == Key.Right)
+        {
+            Droite();
+        }
+       
+    }
+
+    /* ... */
+    public void GaucheInterface()
+    {
+        Console.WriteLine("Déplacement à gauche à coder...");
+        if (e.Key == Key.Left)
+        {
+            Gauche();
+        }
+    
+
+    }
+
+    /* ... */
+    public void BasInterface()
+    {
+        Console.WriteLine("Déplacement en bas à coder...");
+        if (e.Key == Key.Bas)
+        {
+            Bas();
+        }
+
+    }
+
+    /* ... */
+    public void TombeInterface()
+    {
+        Console.WriteLine("Déplacement rapide en bas à coder...");
+        if (e.Key == Key.Tombe);
+        {
+            Tombe();
+        }
+
+    } 
+
+    /* ... */
+    public void RotationDroiteInterface()
+    {
+        Console.WriteLine("Rotation à droit à coder...");
+    }
+
+    /* ... */
+    public void RotationGaucheInterface()
+    {
+        Console.WriteLine("Rotation à gauche à coder...");
+    }
+    
+}/**************************************** Fichier MainWindow.axaml.cs
  * Gère l'interface du jeu de Tetris : la fenêtre graphique et 
  * l'ensemble des interactions du jeu.
  * Auteur : Le groupe 3MS
