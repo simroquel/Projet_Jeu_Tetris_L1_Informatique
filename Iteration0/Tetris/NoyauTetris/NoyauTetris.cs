@@ -1,4 +1,4 @@
-﻿namespace NoyauTetris;
+namespace NoyauTetris;
 // blanc: pas de carré, noir: cadre et tour des carrés, autres: couleurs des tetrinos
 public enum TetrinoCouleur
 {
@@ -9,144 +9,48 @@ public enum TetrinoCouleur
     jaune,
     bleu
 }
-/** Sert à définir la largeur et la hauteur des carrés */
+
 public class JeuTetris
 {
+    public Tetrino TetrinoCourant;
     public static int largeurGrille = 12;
     public static int HauteurGrille = 15;
-
-}
-/** Définit la position d'un carré avec ses positions x et y*/
-
-
-
-/** Sert à définir la largeur et la hauteur des carrés */
-/** Sert à définir la largeur et la hauteur des carrés */
-public class MonJeuTetris
-{
-    public static int largeurGrille = 12;
-    public static int HauteurGrille = 15;
-
-    // Grille du jeu : 0 = vide, 1 = occupé
-    public int[,] Grille;
-
-    // Tetrimino courant : on utilise un tableau pour la forme et une position pour le coin supérieur gauche
-    public int[,] TetriminoCourantForme;
-    public Position TetriminoCourantPosition;
-
-    // Constructeur
-    public MonJeuTetris()
-    {
-        Grille = new int[HauteurGrille, largeurGrille];
-    }
-
-    // Initialise le jeu avec un nouveau tetrimino
     public void Demarrer()
     {
-        Grille = new int[HauteurGrille, largeurGrille];
-        TetriminoCourantForme = NouveauTetrimino();
-        TetriminoCourantPosition = new Position(3, 0); // départ en haut au centre
+        TetrinoCourant = TetrinoCourant.NouveauTetrino();
     }
-
-    // Déplace le tetrimino d'une case à droite
-    public void Droite()
-    {
-        if (PositionValide(TetriminoCourantPosition.x + 1, TetriminoCourantPosition.y))
-        {
-            TetriminoCourantPosition.DeplacerDroite();
-        }
-    }
-
-    // Déplace le tetrimino d'une case à gauche
     public void Gauche()
     {
-        if (PositionValide(TetriminoCourantPosition.x - 1, TetriminoCourantPosition.y))
+        if(TetrinoCourant.PositionOrigine.x > 0)
         {
-            TetriminoCourantPosition.DeplacerGauche();
-        }
+            TetrinoCourant.PositionOrigine.DeplacerGauche();
+        } 
     }
-
-    // Déplace le tetrimino d'une case vers le bas
+    public void Droite()
+    {
+        if(TetrinoCourant.PositionOrigine.x < largeurGrille)
+        {
+            TetrinoCourant.PositionOrigine.DeplacerGauche();
+        } 
+    }
     public void Bas()
     {
-        if (PositionValide(TetriminoCourantPosition.x, TetriminoCourantPosition.y + 1))
+        if(TetrinoCourant.PositionOrigine.y <= HauteurGrille)
         {
-            TetriminoCourantPosition.DeplacerBas();
-        }
-        else
-        {
-            FixerTetrimino();
-            TetriminoCourantForme = NouveauTetrimino();
-            TetriminoCourantPosition = new Position(3, 0);
+            TetrinoCourant.PositionOrigine.DeplacerBas();
+        } 
+        else {
+            TetrinoCourant = TetrinoCourant.NouveauTetrino();
         }
     }
-
-    // Fait tomber le tetrimino jusqu'en bas
     public void Tombe()
     {
-        while (PositionValide(TetriminoCourantPosition.x, TetriminoCourantPosition.y + 1))
-        {
-            TetriminoCourantPosition.DeplacerBas();
-        }
-        FixerTetrimino();
-        TetriminoCourantForme = NouveauTetrimino();
-        TetriminoCourantPosition = new Position(3, 0);
+        TetrinoCourant.PositionOrigine.y = HauteurGrille;
     }
 
-    // Vérifie si la pièce peut être placée à la position donnée
-    private bool PositionValide(int posX, int posY)
-    {
-        for (int i = 0; i < TetriminoCourantForme.GetLength(0); i++)
-        {
-            for (int j = 0; j < TetriminoCourantForme.GetLength(1); j++)
-            {
-                if (TetriminoCourantForme[i, j] == 0)
-                    continue;
 
-                int x = posX + j;
-                int y = posY + i;
-
-                if (x < 0 || x >= largeurGrille || y >= HauteurGrille)
-                    return false;
-
-                if (y >= 0 && Grille[y, x] == 1)
-                    return false;
-            }
-        }
-        return true;
-    }
-
-    // Fixe le tetrimino courant dans la grille
-    private void FixerTetrimino()
-    {
-        for (int i = 0; i < TetriminoCourantForme.GetLength(0); i++)
-        {
-            for (int j = 0; j < TetriminoCourantForme.GetLength(1); j++)
-            {
-                if (TetriminoCourantForme[i, j] == 1)
-                {
-                    int x = TetriminoCourantPosition.x + j;
-                    int y = TetriminoCourantPosition.y + i;
-
-                    if (y >= 0)
-                        Grille[y, x] = 1;
-                }
-            }
-        }
-    }
-
-    // Crée un nouveau tetrimino (ici juste un carré 2x2 pour simplifier)
-    private int[,] NouveauTetrimino()
-    {
-        return new int[,]
-        {
-            {1, 1},
-            {1, 1}
-        };
-    }
 }
 
-/** Définit la position d'un carré avec ses positions x et y*/
 public class Position
 {
     public int x;
@@ -169,8 +73,6 @@ public class Position
         y = y + 1;
     }
 }
-
-
 
 /* 
 Tâche à faire:
@@ -221,10 +123,11 @@ public class Tetrino
         return resultat;
     }
     /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position choisie */
-    public void NouveauTetrino()
+    public Tetrino NouveauTetrino()
     {
         Indice = rand.Next(TetrinosTab.GetLength(0));
         Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
         PositionOrigine = new Position(0,0);
+        return new Tetrino(Indice, PositionOrigine, Couleur);
     }
 }
