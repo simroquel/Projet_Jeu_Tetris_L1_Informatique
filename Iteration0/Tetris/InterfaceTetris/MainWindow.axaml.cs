@@ -25,6 +25,8 @@ public partial class MainWindow : Window
     public int TailleCarre = 22;
     public int LargeurCadre = 12;
     public int Marge = 40;
+    // Attribut pour gerer la logique du jeu
+    public JeuTetris Jeu;
 
     public MainWindow()
     {
@@ -52,6 +54,8 @@ public partial class MainWindow : Window
         QuitButton.Click += (s, e) => { Close();};
         // détecte la pression d'une touche du clavier, et déclanche l'évènement correspondant
         KeyDown += (s, e) =>
+        // Initialisation de l'instance du jeu
+        Jeu = new JeuTetris();
         {
             // Choix des touches à modifier si besoin (voir la documentation de l'énumération Key)
             if (e.Key == Key.Left)
@@ -78,10 +82,32 @@ public partial class MainWindow : Window
             }
         };
     } 
+    // Méthode qui déssine le jeu
+    public void DessinerJeu()
+    {
+        // Vide le canvas pour redéssiner à chaque mouvement
+        TetrisCanvas.Children.Clear();
+        DessinerCadre(); 
+        // Récupère les positions réelles du tetrino dans le jeu 
+        Position[] positionsDuTetrino = Jeu.TetrinoCourant.Positions();
+        foreach (Position p in positionsDuTetrino)
+        {
+            // On n'affiche que si l'ordonnée est positive (y >= 0)
+             if (p.y >= 0)
+            {
+                DessinerCarre(
+                p.x * TailleCarre,
+                p.y * TailleCarre,
+                Jeu.TetrinoCourant.Couleur
+                );
+            }
+        }
+    }
     /**Traduit les couleurs de l'énum TetrinoCouleur en couleurs affichables
     @param couleur une couleur de l'énum TetrinoCouleur
     @return IBrush retrourne une valeur de type IBrush pour dessiner dans le canvas
     */
+    
 public IBrush Couleur2Affichable(TetrinoCouleur couleur)
     {
         switch (couleur)
@@ -150,32 +176,39 @@ Sert à dessiner les carrés du jeu avec un contour noir en prenant comme parame
         DessinerCarre(10, 0, TetrinoCouleur.rouge);
         DessinerCarre(32, 22, TetrinoCouleur.jaune);
         DessinerCarre(54, 44, TetrinoCouleur.bleu);
-
+        Jeu.Demarrer();    // Initialise le tetrino courant 
+        Minuteur.Start();  // Lance la descente automatique 
+        DessinerJeu();
     }
 
+    
     /* ... */
     public void DroiteInterface()
     {
-        Console.WriteLine("Déplacement à droite à coder...");
+        Jeu.Droite(); // Déplace le tetrino d'une case vers la droite
+        DessinerJeu(); // Rafraîchit l'écran
     }
+    
 
     /* ... */
     public void GaucheInterface()
     {
-        Console.WriteLine("Déplacement à gauche à coder...");
+        Jeu.Gauche();
+        DessinerJeu();
     }
 
     /* ... */
     public void BasInterface()
     {
-        Console.WriteLine("Déplacement en bas à coder...");
+        Jeu.Bas();
+        DessinerJeu();
     }
 
     /* ... */
     public void TombeInterface()
     {
-        Console.WriteLine("Déplacement rapide en bas à coder...");
-
+        Jeu.Tombe();
+        DessinerJeu();
     }
 
     /* ... */
