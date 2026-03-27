@@ -10,48 +10,62 @@ public enum TetrinoCouleur
     bleu
 }
 
+/**Fait apparaitre des Tetrinos au démarrage et quand le TetrinoCourant est tombé, définit le TetrinoCourant et ses déplacements*/
 public class JeuTetris
 {
     public Tetrino TetrinoCourant;
-    public static int largeurGrille = 12;
+    
+    public static int LargeurGrille = 12;
     public static int HauteurGrille = 15;
     public void Demarrer()
     {
-        TetrinoCourant = TetrinoCourant.NouveauTetrino();
+        TetrinoCourant = Tetrino.NouveauTetrino();
     }
     public void Gauche()
     {
+ 
         if(TetrinoCourant.PositionOrigine.x > 0)
         {
             TetrinoCourant.PositionOrigine.DeplacerGauche();
         } 
+
     }
     public void Droite()
     {
-        if(TetrinoCourant.PositionOrigine.x < largeurGrille)
+        Position[] positions = TetrinoCourant.Positions();
+
+        foreach (Position p in positions)
         {
-            TetrinoCourant.PositionOrigine.DeplacerGauche();
-        } 
+            if (p.x >= LargeurGrille - 1)
+            {
+                return; // bloque le mouvement
+            }
+        }
+
+        TetrinoCourant.PositionOrigine.DeplacerDroite();
     }
     public void Bas()
     {
-        if(TetrinoCourant.PositionOrigine.y <= HauteurGrille)
+        Position[] positions = TetrinoCourant.Positions();
+        foreach (Position p in positions)
         {
-            TetrinoCourant.PositionOrigine.DeplacerBas();
-        } 
-        else {
-            TetrinoCourant = TetrinoCourant.NouveauTetrino();
+            if(p.y >= HauteurGrille - 1)
+            {
+                TetrinoCourant = Tetrino.NouveauTetrino();
+            } 
         }
+        TetrinoCourant.PositionOrigine.DeplacerBas();
     }
     public void Tombe()
     {
         TetrinoCourant.PositionOrigine.y = HauteurGrille;
-        TetrinoCourant = TetrinoCourant.NouveauTetrino();
+        TetrinoCourant = Tetrino.NouveauTetrino();
     }
 
 
 }
 
+/**Définit la position d'un Tetrino et permet son déplacement à Gauche, Droite et Bas*/
 public class Position
 {
     public int x;
@@ -75,14 +89,10 @@ public class Position
     }
 }
 
-/* 
-Tâche à faire:
-- 
-? TetrinoTab ??
-*/
+/**Définit un Tetrino*/
 public class Tetrino
 {
-    //Indice correspond à la formDans le noyau, définissez une classee choisie (0 ou 1 ou 2)
+    //Indice correspond à la forme dans le noyau, définissez une classe choisie (0 ou 1 ou 2)
     public int Indice;
     //PositionOrigine correspond à la position de l'origine de la forme dans le repère du jeu
     public Position PositionOrigine;
@@ -124,11 +134,11 @@ public class Tetrino
         return resultat;
     }
     /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position choisie */
-    public Tetrino NouveauTetrino()
+    public static Tetrino NouveauTetrino()
     {
-        Indice = rand.Next(TetrinosTab.GetLength(0));
-        Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
-        PositionOrigine = new Position(0,0);
-        return new Tetrino(Indice, PositionOrigine, Couleur);
+        int indice = rand.Next(TetrinosTab.GetLength(0));
+        TetrinoCouleur Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
+        Position position = new Position(0,0);
+        return new Tetrino(indice, position, Couleur);
     }
 }
