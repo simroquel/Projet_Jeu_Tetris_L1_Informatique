@@ -41,30 +41,30 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        /** Définit la taille de la fenêtre à partir des constantes*/
+        /** Définit la taille de la fenêtre à partir des constantes. */
         Width = 300;
         Height = 600;
-        /** Définit le texte de InfoText*/
+        /** Définit le texte de InfoText. */
         InfoText.Text = "Jeu Tetris de l'équipe 3MS";
-        /** Définit la taille du canvas à partir de la largeur de la grille et de la taille des carrés*/
+        /** Définit la taille du canvas à partir de la largeur de la grille et de la taille des carrés. */
         TetrisCanvas.Width = JeuTetris.LargeurGrille * TailleCarre;
         TetrisCanvas.Height = JeuTetris.HauteurGrille * TailleCarre;
-        /** Définit la taille des boutons à partir de la largeur du canvas*/
+        /** Définit la taille des boutons à partir de la largeur du canvas. */
         StartButton.Width = TetrisCanvas.Width;
         StartButton.Height = 35;
         QuitButton.Width = TetrisCanvas.Width;
         QuitButton.Height = 35; 
-        /** Initialise le minuteur pour faire descendre le tetrino courant toutes les 500 milisecondes*/
+        /** Initialise le minuteur pour faire descendre le tetrino courant toutes les 500 milisecondes. */
         Minuteur = new DispatcherTimer();
         Minuteur.Interval = TimeSpan.FromMilliseconds(500);
         Minuteur.Tick += (s, e) => { BasInterface(); };   
-        /** détecte le clic sur le bouton Démarrer, déclanche l'évènement DemarrerInterface, puis appelle la méthode DemarrerTetris*/
+        /** détecte le clic sur le bouton Démarrer, déclanche l'évènement DemarrerInterface, puis appelle la méthode DemarrerTetris. */
         StartButton.Click += (s, e) => { DemarrerInterface(); };
         /** détecte le clic sur le bouton Quitter, déclanche l'évènement Quiter, puis ferme la fenêtre*/
         QuitButton.Click += (s, e) => { Close(); };
-        /** Initialisation de l'instance du jeu*/
+        /** Initialisation de l'instance du jeu. */
         Jeu = new JeuTetris();
-        /** détecte la pression d'une touche du clavier, et déclanche l'évènement correspondant*/
+        /** détecte la pression d'une touche du clavier, et déclanche l'évènement correspondant. */
         KeyDown += (s, e) =>
         {
             if (e.Key == Key.Left) GaucheInterface();
@@ -113,15 +113,15 @@ public partial class MainWindow : Window
     /** * Dessine une forme rectangulaire sur le canvas.
      * @param x Position horizontale.
      * @param y Position verticale.
-     * @param with Largeur du rectangle.
+     * @param width Largeur du rectangle.
      * @param height Hauteur du rectangle.
      * @param couleur Couleur de remplissage.
      */
-    public void DessinerRectangle(int x, int y, int with, int height, Avalonia.Media.IBrush couleur)
+    public void DessinerRectangle(int x, int y, int width, int height, Avalonia.Media.IBrush couleur)
     {
         TetrisCanvas.Children.Add(new Avalonia.Controls.Shapes.Rectangle
         {
-            Width = with,
+            Width = width,
             Height = height,
             Fill = couleur,
             Margin = new Thickness(x, y, 0, 0) 
