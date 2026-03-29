@@ -3,7 +3,10 @@
  * @author Groupe 3MS
  * @version 2
  *****************************************/
+
 namespace NoyauTetris;
+
+
 /** enum qui contient des couleurs: blanc: pas de carré, gris: cadre, noir: contour des carrés, autres: couleurs des tetrinos*/
 public enum TetrinoCouleur
 {
@@ -59,19 +62,24 @@ public class JeuTetris
         Position[] positions = TetrinoCourant.Positions();
         //Vérifie la position de chaque carrée du Tetrino pour savoir si le déplacement est possible
         foreach (Position p in positions)
-        {
-            if(p.y >= HauteurGrille - 1)
+        // {
+            if(p.y == HauteurGrille - 1)
             {
+                System.Threading.Thread.Sleep(300);
                 TetrinoCourant = Tetrino.NouveauTetrino();
+                return;
             } 
-        }
+        // }
         TetrinoCourant.PositionOrigine.DeplacerBas();
     }
+    
+
+
+
     /**Fait tomber en bas et fait apparaître un nouveau Tetrino*/
     public void Tombe()
     {
-        TetrinoCourant.PositionOrigine.y = HauteurGrille;
-        TetrinoCourant = Tetrino.NouveauTetrino();
+        TetrinoCourant.PositionOrigine.y = HauteurGrille - 1;
     }
 
 
