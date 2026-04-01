@@ -75,3 +75,34 @@ public class TestJeuTetris
         Assert.Equal(posYAvant + 1, jeu.TetrinoCourant.PositionOrigine.y);
     }
 }
+public class TestPosition()
+{   [Fact]
+  
+    /**test deplacer a gauche a l'unité*/
+    public void deplacerGauche()
+    {
+        JeuTetris jeu = new JeuTetris();
+        jeu.Demarrer();
+        jeu.TetrinoCourant.PositionOrigine.x= jeu.TetrinoCourant.PositionOrigine.x + 1;
+        int posXAvant = jeu.TetrinoCourant.PositionOrigine.x;
+        jeu.Gauche();
+        Assert.Equal(posXAvant - 1, jeu.TetrinoCourant.PositionOrigine.x);
+    } 
+        [Fact]
+    /**test deplacer a droite a l'unité*/
+    public void deplacerDroite()    {
+        JeuTetris jeu = new JeuTetris();
+        jeu.Demarrer();
+        int posXAvant = jeu.TetrinoCourant.PositionOrigine.x;
+        jeu.Droite();
+        Assert.Equal(posXAvant + 1, jeu.TetrinoCourant.PositionOrigine.x);
+    }
+    [Fact]
+    /**test deplacer en bas a l'unité*/
+    public void deplacerBas()    {
+        JeuTetris jeu = new JeuTetris();
+        jeu.Demarrer();
+        int posYAvant = jeu.TetrinoCourant.PositionOrigine.y;
+        jeu.Bas();
+        Assert.Equal(posYAvant + 1, jeu.TetrinoCourant.PositionOrigine.y);
+     } }
