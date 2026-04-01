@@ -31,8 +31,8 @@ public partial class MainWindow : Window
     /** Marge de sécurité pour l'affichage. */
     public int Marge = 40;
 
-    /** Référence vers le moteur logique du jeu. */
-    public JeuTetris Jeu;
+    // Création de l'instance de notre class JeuTetris
+    public JeuTetris Jeu = new JeuTetris();
 
     /**
      * Constructeur de la fenêtre principale.
@@ -76,7 +76,9 @@ public partial class MainWindow : Window
     } 
 
     /** * Assure le rendu graphique complet de l'état actuel du jeu.
-     * Efface le canvas et redessine le cadre ainsi que le Tetrino courant.
+     * 
+Efface le canvas et redessine le cadre ainsi que le Tetrino courant.
+@todo Changer la place de la clear pour garder le tetrino posé
      */
     public void DessinerJeu()
     {
