@@ -23,13 +23,13 @@ public partial class MainWindow : Window
     public DispatcherTimer Minuteur;
     
     /** Dimension en pixels du côté d'un carré élémentaire. */
-    public int TailleCarre = 22;
+    public int TailleCarre = 20; // Mis à jour (20px)
     
     /** Épaisseur visuelle du cadre de la grille de jeu. */
     public int LargeurCadre = 10;
     
     /** Marge de sécurité pour l'affichage. */
-    public int Marge = 40;
+    public int Marge = 50; // Mis à jour (50px)
 
     // Création de l'instance de notre class JeuTetris
     public JeuTetris Jeu = new JeuTetris();
@@ -51,9 +51,9 @@ public partial class MainWindow : Window
         TetrisCanvas.Height = JeuTetris.HauteurGrille * TailleCarre;
         /** Définit la taille des boutons à partir de la largeur du canvas. */
         StartButton.Width = TetrisCanvas.Width;
-        StartButton.Height = 35;
+        StartButton.Height = 36; // Mis à jour (36px)
         QuitButton.Width = TetrisCanvas.Width;
-        QuitButton.Height = 35; 
+        QuitButton.Height = 36; // Mis à jour (36px)
         /** Initialise le minuteur pour faire descendre le tetrino courant toutes les 500 milisecondes. */
         Minuteur = new DispatcherTimer();
         Minuteur.Interval = TimeSpan.FromMilliseconds(500);
@@ -92,6 +92,30 @@ Efface le canvas et redessine le cadre ainsi que le Tetrino courant.
                 DessinerCarre(p.x * TailleCarre, p.y * TailleCarre, Jeu.TetrinoCourant.Couleur);
             }
         }
+        // Dessiner les carrés figés de la grille 
+        // On parcourt la grille
+        for (int y = 0; y < 20; y++)
+        {
+            for(int x =0; x < 10; x++)
+            {
+                //On récupère la couleur stockée dans le tableau à 2 dimensions
+                TetrinoCouleur couleurCase = Jeu.Grille[x,y];
+                if (couleurCase != TetrinoCouleur.blanc)
+                {
+                    DessinerCarre(x * TailleCarre, y * TailleCarre, couleurCase);
+                }
+            }
+        }
+        // Dessin du tétrino courant en cours de chutte
+        foreach (Position p in positionsDuTetrino)
+        {
+            // On ne dessine que les carrés à l'intérieur des limites visibles
+            if (p.y >= 0)
+            {
+                DessinerCarre(p.x * TailleCarre, p.y * TailleCarre, Jeu.TetrinoCourant.Couleur);
+            }
+        }
+        
     }
     
     /**
