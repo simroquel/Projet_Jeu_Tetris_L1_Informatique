@@ -23,12 +23,25 @@ public class JeuTetris
 {
     /**Définit le Tetrino courant*/
     public Tetrino TetrinoCourant;
+    public TetrinoCouleur[,] Grille;
+    public static int LargeurGrille = 10;
+    public static int HauteurGrille = 20;
+    public JeuTetris()
+    {
+        Grille = new TetrinoCouleur[LargeurGrille, HauteurGrille];
+    }
     
-    public static int LargeurGrille = 12;
-    public static int HauteurGrille = 15;
     /**Appellée au démarrage, crée un nouveau tétrino*/
     public void Demarrer()
     {
+        Grille = new TetrinoCouleur[LargeurGrille, HauteurGrille];
+        for(int i = 0; i < LargeurGrille; i++)
+        {
+            for(int j = 0; j < HauteurGrille; j++)
+            {
+                Grille[i, j] = TetrinoCouleur.blanc;
+            }
+        }
         TetrinoCourant = Tetrino.NouveauTetrino();
     }
     /**Déplace à Gauche*/
@@ -56,20 +69,29 @@ public class JeuTetris
 
         TetrinoCourant.PositionOrigine.DeplacerDroite();
     }
-    /**Déplace en Bas, si le Tetrino est tout en bas il disparaît et un nouveau Tetrino apparaît */
+    /**Déplace en Bas, si le Tetrino est tout en bas il se fige, si il y a des carrés figés juste en dessous il se fige, puis un nouveau Tetrino apparaît */
     public void Bas()
     {
         Position[] positions = TetrinoCourant.Positions();
         //Vérifie la position de chaque carrée du Tetrino pour savoir si le déplacement est possible
         foreach (Position p in positions)
-        // {
+        {  
+            //Fige si tout en bas
             if(p.y == HauteurGrille - 1)
             {
-                System.Threading.Thread.Sleep(300);
+                FigerTetrino();
                 TetrinoCourant = Tetrino.NouveauTetrino();
                 return;
             } 
-        // }
+
+            //Fige si collision avec un bloc
+            if(p.y >= 0 && Grille[p.x, p.y + 1] != TetrinoCouleur.blanc)
+            {
+                FigerTetrino();
+                TetrinoCourant = Tetrino.NouveauTetrino();
+                return;
+            }
+        }
         TetrinoCourant.PositionOrigine.DeplacerBas();
     }
     
@@ -79,7 +101,79 @@ public class JeuTetris
     /**Fait tomber en bas et fait apparaître un nouveau Tetrino*/
     public void Tombe()
     {
-        TetrinoCourant.PositionOrigine.y = HauteurGrille - 1;
+        bool peutTomber = true;
+        while (peutTomber == true)
+        {
+            Position[] positions = TetrinoCourant.Positions();
+            //Vérifie la position de chaque carrée du Tetrino pour savoir si le déplacement est possible
+            foreach (Position p in positions)
+            {  
+                //Fige si tout en bas
+                if(p.y == HauteurGrille - 1)
+                {
+                    FigerTetrino();
+                    TetrinoCourant = Tetrino.NouveauTetrino();
+                    peutTomber = false;
+                    return;
+                } 
+
+                //Fige si collision avec un bloc
+                if(p.y >= 0 && Grille[p.x, p.y + 1] != TetrinoCouleur.blanc)
+                {
+                    FigerTetrino();
+                    TetrinoCourant = Tetrino.NouveauTetrino();
+                    peutTomber = false;
+                    return;
+                }
+            }
+            TetrinoCourant.PositionOrigine.DeplacerBas();
+        }    
+    }
+    /**Fige le Tetrino courant dans la grille: ajoute les carrés dans la grille et supprime les lignes pleines de la grille*/
+    public void FigerTetrino()
+    {
+        //Ajouter les carrés du Tetrino Courant dans la Grille
+        Position[] positions = TetrinoCourant.Positions();
+        foreach(Position p in positions)
+        {
+            if(p.y >= 0 && p.y < HauteurGrille)
+            {
+                Grille[p.x, p.y] = TetrinoCourant.Couleur;
+            }
+            
+        }
+
+        //Vérifier si une ligne de la grille est pleine
+        for(int y = 0; y < HauteurGrille; y++)
+        {
+            bool LignePleine = true;
+            for(int x = 0; x < LargeurGrille; x++){
+                if(Grille[x, y] == TetrinoCouleur.blanc)
+                {
+                   LignePleine = false;
+                   break;
+                }
+            }
+
+            //Si LignePleine reste true, alors on la supprime (on déclale toutes les lignes au dessus d'un cran vers le bas)
+            if(LignePleine == true)
+            {
+                for(int x = 0; x < LargeurGrille; x++)
+                {
+                    for(int j = y; j > 0; j--)
+                    {
+                        Grille[x,j] = Grille[x, j-1];
+                    }
+                }
+                //on vide la ligne tout en haut
+                for(int x = 0; x < LargeurGrille; x++)
+                {
+                    Grille[x, 0] = TetrinoCouleur.blanc;
+                }
+            
+            }
+        }
+
     }
 
 
