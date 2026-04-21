@@ -23,9 +23,13 @@ public class JeuTetris
 {
     /**Définit le Tetrino courant*/
     public Tetrino TetrinoCourant;
+    /**Définit la Grille du Jeu*/
     public TetrinoCouleur[,] Grille;
+    /**Définit la largeur de la Grille*/
     public static int LargeurGrille = 10;
+    /**Définit la hauteur de la Grille*/
     public static int HauteurGrille = 20;
+    /**Construit le jeu*/
     public JeuTetris()
     {
         Grille = new TetrinoCouleur[LargeurGrille, HauteurGrille];
