@@ -266,4 +266,42 @@ public class Tetrino
         Position position = new Position(0,0);
         return new Tetrino(indice, position, Couleur);
     }
+      public void RotationDroite()
+    {
+        if (Indice == 1)
+        {
+            PositionOrigine.x += 1;
+            PositionOrigine.y -= 1;
+            Indice = 2;
+            return;
+        }
+
+        if (Indice == 2)
+        {
+            PositionOrigine.x -= 1;
+            PositionOrigine.y += 1;
+            Indice = 1;
+            return;
+        }
+    }
+
+    public void RotationGauche()
+    {
+        if (Indice == 1)
+        {
+            PositionOrigine.x += 2;
+            PositionOrigine.y -=1;
+            Indice = 2;
+            return;
+        }  
+        if (Indice == 2)
+        {
+            PositionOrigine.x -=2;
+            PositionOrigine.y += 1;
+            Indice = 1;
+            return;
+        }
+
+
+    }
 }
