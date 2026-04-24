@@ -17,7 +17,127 @@ public enum TetrinoCouleur
     jaune,
     bleu
 }
+/**Définit la position d'un Tetrino et permet son déplacement à Gauche, Droite et Bas*/
+public class Position
+{
+    /**abcisse de la position*/
+    public int x;
+    /**ordonnée de la position*/
+    public int y;
+    /**Construit la position*/
+    public Position(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    /**Déplace à gauche de 1 unité*/
+    public void DeplacerGauche()
+    {
+        x = x - 1;
+    }
+    /**Déplace à droite de 1 unité*/
+    public void DeplacerDroite()
+    {
+        x = x + 1;
+    }
+    /**Déplace en bas de 1 unité*/
+    public void DeplacerBas()
+    {
+        y = y + 1;
+    }
+}
+/**Définit un Tetrino*/
+public class Tetrino
+{
+    /**Indice correspond à la forme dans le noyau, définissez une classe choisie (0 ou 1 ou 2)*/
+    public int Indice;
+    /**PositionOrigine correspond à la position de l'origine de la forme dans le repère du jeu*/
+    public Position PositionOrigine;
+    /**la couleur du Tetrino*/
+    public TetrinoCouleur Couleur;
+    /**pour l'aléatoire*/
+    public static Random rand = new Random();
+    /**CouleursTetrinos est le tableau des couleurs possibles d'un Tetrino*/
+    public static TetrinoCouleur[] CouleursTetrinos = new TetrinoCouleur[]{TetrinoCouleur.rouge, TetrinoCouleur.jaune, TetrinoCouleur.bleu};
+    /**Construit un Tetrino*/
+    public Tetrino(int indice, Position position, TetrinoCouleur couleur){
+        Indice = indice;
+        PositionOrigine = position;
+        Couleur = couleur;
+    }
+    /**Un tableau des formes des Tetrinos qui contiennent des tableaux avec la position de leurs carrés*/
+    public static Position[][] TetrinosTab = new Position[][]
+    {
+    // carre
+        new Position[] { new Position(0, 0), new Position(1, 0),
+        new Position(0, -1), new Position(1, -1) },
+    // barre horizontale
+        new Position[] { new Position(0, 0), new Position(1, 0),
+        new Position(2, 0), new Position(3, 0) },
+    // barre verticale
+        new Position[] { new Position(0, 0), new Position(0, -1),
+        new Position(0, -2), new Position(0, -3) }
+    };
 
+    /**La Position du Tetrinos totale
+    @return resultat position du Tetrino choisi dans le repère du jeu*/
+    public Position[] Positions()
+    {
+        Position[] forme = TetrinosTab[Indice];
+        Position[] resultat = new Position[forme.Length];
+        for(int i = 0; i <forme.Length; i++)
+        {
+            resultat[i] = new Position(forme[i].x +  PositionOrigine.x, forme[i].y + PositionOrigine.y );
+        }
+        return resultat;
+    }
+    /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position choisie */
+    public static Tetrino NouveauTetrino()
+    {
+        int indice = rand.Next(TetrinosTab.GetLength(0));
+        TetrinoCouleur Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
+        Position position = new Position(0,0);
+        return new Tetrino(indice, position, Couleur);
+    }
+      public void RotationDroite()
+    {
+        if (Indice == 1)
+        {
+            PositionOrigine.x += 1;
+            PositionOrigine.y -= 1;
+            Indice = 2;
+            return;
+        }
+
+        if (Indice == 2)
+        {
+            PositionOrigine.x -= 1;
+            PositionOrigine.y += 1;
+            Indice = 1;
+            return;
+        }
+    }
+
+    public void RotationGauche()
+    {
+        if (Indice == 1)
+        {
+            PositionOrigine.x += 2;
+            PositionOrigine.y -=1;
+            Indice = 2;
+            return;
+        }  
+        if (Indice == 2)
+        {
+            PositionOrigine.x -=2;
+            PositionOrigine.y += 1;
+            Indice = 1;
+            return;
+        }
+
+
+    }
+}
 /**Fait apparaitre des Tetrinos au démarrage et quand le TetrinoCourant est tombé, définit le TetrinoCourant et ses déplacements*/
 public class JeuTetris
 {
@@ -51,9 +171,17 @@ public class JeuTetris
     /**Déplace à Gauche*/
     public void Gauche()
     {
- 
+        Position[] positions = TetrinoCourant.Positions();
         if(TetrinoCourant.PositionOrigine.x > 0)
         {
+            foreach (Position p in positions)
+            {  
+                //Ne déplace pas à gauche si il y a  déja un tetrino figé
+                if(p.y < 0 || Grille[p.x - 1, p.y] != TetrinoCouleur.blanc)
+                {
+                    return;
+                }
+            }
             TetrinoCourant.PositionOrigine.DeplacerGauche();
         } 
 
@@ -69,8 +197,12 @@ public class JeuTetris
             {
                 return;
             }
+            //Ne déplace pas à droite si il y a  déja un tetrino figé
+            if(p.y < 0 || Grille[p.x + 1, p.y] != TetrinoCouleur.blanc)
+            {
+                return;
+            }
         }
-
         TetrinoCourant.PositionOrigine.DeplacerDroite();
     }
     /**Déplace en Bas, si le Tetrino est tout en bas il se fige, si il y a des carrés figés juste en dessous il se fige, puis un nouveau Tetrino apparaît */
@@ -180,128 +312,4 @@ public class JeuTetris
 
     }
 
-
-}
-
-/**Définit la position d'un Tetrino et permet son déplacement à Gauche, Droite et Bas*/
-public class Position
-{
-    /**abcisse de la position*/
-    public int x;
-    /**ordonnée de la position*/
-    public int y;
-    /**Construit la position*/
-    public Position(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
-    }
-    /**Déplace à gauche de 1 unité*/
-    public void DeplacerGauche()
-    {
-        x = x - 1;
-    }
-    /**Déplace à droite de 1 unité*/
-    public void DeplacerDroite()
-    {
-        x = x + 1;
-    }
-    /**Déplace en bas de 1 unité*/
-    public void DeplacerBas()
-    {
-        y = y + 1;
-    }
-}
-
-/**Définit un Tetrino*/
-public class Tetrino
-{
-    /**Indice correspond à la forme dans le noyau, définissez une classe choisie (0 ou 1 ou 2)*/
-    public int Indice;
-    /**PositionOrigine correspond à la position de l'origine de la forme dans le repère du jeu*/
-    public Position PositionOrigine;
-    /**la couleur du Tetrino*/
-    public TetrinoCouleur Couleur;
-    /**pour l'aléatoire*/
-    public static Random rand = new Random();
-    /**CouleursTetrinos est le tableau des couleurs possibles d'un Tetrino*/
-    public static TetrinoCouleur[] CouleursTetrinos = new TetrinoCouleur[]{TetrinoCouleur.rouge, TetrinoCouleur.jaune, TetrinoCouleur.bleu};
-    /**Construit un Tetrino*/
-    public Tetrino(int indice, Position position, TetrinoCouleur couleur){
-        Indice = indice;
-        PositionOrigine = position;
-        Couleur = couleur;
-    }
-    /**Un tableau des formes des Tetrinos qui contiennent des tableaux avec la position de leurs carrés*/
-    public static Position[][] TetrinosTab = new Position[][]
-    {
-    // carre
-        new Position[] { new Position(0, 0), new Position(1, 0),
-        new Position(0, -1), new Position(1, -1) },
-    // barre horizontale
-        new Position[] { new Position(0, 0), new Position(1, 0),
-        new Position(2, 0), new Position(3, 0) },
-    // barre verticale
-        new Position[] { new Position(0, 0), new Position(0, -1),
-        new Position(0, -2), new Position(0, -3) }
-    };
-
-    /**La Position du Tetrinos totale
-    @return resultat position du Tetrino choisi dans le repère du jeu*/
-    public Position[] Positions()
-    {
-        Position[] forme = TetrinosTab[Indice];
-        Position[] resultat = new Position[forme.Length];
-        for(int i = 0; i <forme.Length; i++)
-        {
-            resultat[i] = new Position(forme[i].x +  PositionOrigine.x, forme[i].y + PositionOrigine.y );
-        }
-        return resultat;
-    }
-    /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position choisie */
-    public static Tetrino NouveauTetrino()
-    {
-        int indice = rand.Next(TetrinosTab.GetLength(0));
-        TetrinoCouleur Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
-        Position position = new Position(0,0);
-        return new Tetrino(indice, position, Couleur);
-    }
-      public void RotationDroite()
-    {
-        if (Indice == 1)
-        {
-            PositionOrigine.x += 1;
-            PositionOrigine.y -= 1;
-            Indice = 2;
-            return;
-        }
-
-        if (Indice == 2)
-        {
-            PositionOrigine.x -= 1;
-            PositionOrigine.y += 1;
-            Indice = 1;
-            return;
-        }
-    }
-
-    public void RotationGauche()
-    {
-        if (Indice == 1)
-        {
-            PositionOrigine.x += 2;
-            PositionOrigine.y -=1;
-            Indice = 2;
-            return;
-        }  
-        if (Indice == 2)
-        {
-            PositionOrigine.x -=2;
-            PositionOrigine.y += 1;
-            Indice = 1;
-            return;
-        }
-
-
-    }
 }
