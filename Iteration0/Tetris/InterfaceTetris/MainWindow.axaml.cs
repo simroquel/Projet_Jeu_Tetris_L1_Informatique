@@ -209,7 +209,7 @@ Efface le canvas et redessine le cadre ainsi que le Tetrino courant.
      */
     public void RotationDroiteInterface()
     {
-        Jeu.TetrinoCourant.RotationDroite();
+        Jeu.RotationDroite();
     }
 
     /** * Effectue une rotation anti-horaire de la pièce.
@@ -217,7 +217,7 @@ Efface le canvas et redessine le cadre ainsi que le Tetrino courant.
      */
     public void RotationGaucheInterface()
     {
-        Jeu.TetrinoCourant.RotationGauche();
+        Jeu.RotationGauche();
     }
 
     /** * Dessine les limites visuelles (bordures) de la zone de jeu.
