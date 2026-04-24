@@ -308,27 +308,26 @@ public class JeuTetris
     }
 public void RotationGauche()
     {
-        Position[] positions = TetrinoCourant.Positions();
-        //Test si un carré est dans la grille
-        bool EstDansLaGrille(Position p)
-        {
-            return p.x >= 0 && p.x < LargeurGrille && p.y >= 0 && p.y < HauteurGrille;
-        }
-        if(TetrinoCourant.PositionOrigine.x > 0)
-        {
-            foreach (Position p in positions)
-            {  
-                //Ne déplace pas à gauche si il y a  déja un tetrino figé
-                if(EstDansLaGrille(p) == false || Grille[p.x - 1, p.y] != TetrinoCouleur.blanc)
-                {
-                    return;
-                }
-            }
-        TetrinoCourant.RotationGauche();
-     }
+        int ancienneIndice = this.TetrinoCourant.Indice;
+        Position anciennePosition = new Position(this.TetrinoCourant.PositionOrigine.x, this.TetrinoCourant.PositionOrigine.y);
+        this.TetrinoCourant.RotationDroite();
 
-     
+         bool EstDansLaGrille(Position p)
+        {
+            return p.x >= 0 && p.x < LargeurGrille && p.y >= 0 && p.y < HauteurGrille && this.Grille[p.x, p.y] == TetrinoCouleur.blanc;
+        }
+
+        foreach (Position p in this.TetrinoCourant.Positions())
+        {
+            if (!EstDansLaGrille(p))
+            {
+                this.TetrinoCourant.Indice = ancienneIndice;
+                this.TetrinoCourant.PositionOrigine.y = anciennePosition.y;
+                this.TetrinoCourant.PositionOrigine.x = anciennePosition.x;
+            }
+        }
     }
+    
     
     /**Fige le Tetrino courant dans la grille: ajoute les carrés dans la grille et supprime les lignes pleines de la grille*/
     public void FigerTetrino()
