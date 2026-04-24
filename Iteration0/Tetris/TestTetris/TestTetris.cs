@@ -178,3 +178,55 @@ public class TestPosition()
         Assert.Equal(1, jeu.TetrinoCourant.Indice);
         }
 }
+public class TestTetrino
+{
+    [Fact]
+    /** Teste si le tableau contient des tableaux avec la position de leurs carres */
+    public void TestTetrinosTab_ContientToutesLesFormes()
+    {
+        // Vérifie qu'il y a bien 3 formes définies dans le tableau
+        Assert.Equal(3, Tetrino.TetrinosTab.Length);
+    }
+    [Fact]
+    public void TestTetrinosTab_StructureDesFormes()
+    {
+        // Carre
+        Assert.Equal(4,Tetrino.TetrinosTab[0].Length);
+        Assert.Contains(Tetrino.TetrinosTab[0], p => p.x == 0 && p.y == 0);
+        Assert.Contains(Tetrino.TetrinosTab[0], p => p.x == 1 && p.y == 0);
+        Assert.Contains(Tetrino.TetrinosTab[0], p => p.x == 0 && p.y == -1);
+        Assert.Contains(Tetrino.TetrinosTab[0], p => p.x == 1 && p.y == -1);
+
+        // Barre horizontale 
+        Assert.Equal(4,Tetrino.TetrinosTab[1].Length);
+        // Verifie qu'il y'a bien 4 blocs sur Y = 0
+        for(int i=0; i < 4; i++)
+        {
+            Assert.Contains(Tetrino.TetrinosTab[1], p => p.x == i && p.y == 0);
+        }
+
+        // Barre verticale 
+        Assert.Equal(4, Tetrino.TetrinosTab[2].Length);
+        // Vérifie que c'est une colonne de 4 blocs sur l'axe X = 0
+        for (int i = 0; i < 4; i++)
+        {
+            Assert.Contains(Tetrino.TetrinosTab[2], p => p.x == 0 && p.y == -i);
+        }
+    }
+
+    [Fact]
+    public void TestNouveauTetrino_Validite()
+    {
+        // On appelle la méthode statique
+        Tetrino t = Tetrino.NouveauTetrino();
+        // Vérifie que le tétrino existe bien
+        Assert.NotNull(t);
+        // Vérifie que l'indice correspond à une forme existante (0, 1 ou 2)
+        Assert.InRange(t.Indice, 0, Tetrino.TetrinosTab.Length - 1);
+        //  Vérifie que la couleur est bien issue du tableau des couleurs autorisées
+        Assert.Contains(t.Couleur, Tetrino.CouleursTetrinos);
+        //  Vérifie que la position X de départ ne fait pas sortir la pièce de la grille
+        Assert.True(t.PositionOrigine.x >= 0 && t.PositionOrigine.x < JeuTetris.LargeurGrille);
+    }
+
+}
