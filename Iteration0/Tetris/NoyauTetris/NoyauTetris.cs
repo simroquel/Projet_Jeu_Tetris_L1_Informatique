@@ -117,7 +117,6 @@ public class Tetrino
 
         if (Indice == 2)
         {
-            PositionOrigine.x -= 1;
             PositionOrigine.y += 1;
             Indice = 1;
             return;
@@ -129,15 +128,14 @@ public class Tetrino
     {
         if (Indice == 1)
         {
-            PositionOrigine.x -= 1;
-            PositionOrigine.y +=1;
+            PositionOrigine.y -=1;
             Indice = 2;
             return;
         }  
         if (Indice == 2)
         {
-            PositionOrigine.x +=1;
-            PositionOrigine.y -= 1;
+            PositionOrigine.x -=1;
+            PositionOrigine.y += 1;
             Indice = 1;
             return;
         }
