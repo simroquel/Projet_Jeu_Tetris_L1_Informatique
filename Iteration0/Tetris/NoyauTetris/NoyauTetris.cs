@@ -91,7 +91,6 @@ public class Tetrino
         }
         return resultat;
     }
-    /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position aléatoire */
     public static Tetrino NouveauTetrino()
     {
         int indice = rand.Next(TetrinosTab.GetLength(0));
@@ -328,7 +327,7 @@ public void RotationGauche()
     {
         int ancienneIndice = this.TetrinoCourant.Indice;
         Position anciennePosition = new Position(this.TetrinoCourant.PositionOrigine.x, this.TetrinoCourant.PositionOrigine.y);
-        this.TetrinoCourant.RotationDroite();
+        this.TetrinoCourant.RotationGauche();
 
          bool EstDansLaGrille(Position p)
         {
