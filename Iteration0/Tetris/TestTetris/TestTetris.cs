@@ -133,5 +133,70 @@ public class TestPosition()
             Assert.Equal(1, indice);
         }
         
-     } 
+     }
+ [Fact]
+    /**test la méthode RotationDroite qui se trouve dans la class
+    Tetrino pour une barre Horizontale*/
+
+    public void TestRotationDroiteBarreHorizontale()    {
+        JeuTetris jeu = new JeuTetris();
+        jeu.Demarrer();
+        jeu.TetrinoCourant.Indice = 1;
+        int posXAvant = jeu.TetrinoCourant.PositionOrigine.x;
+        int posYAvant = jeu.TetrinoCourant.PositionOrigine.y;
+     
+        jeu.TetrinoCourant.RotationDroite();
+        Assert.Equal(posXAvant + 1, jeu.TetrinoCourant.PositionOrigine.x);
+        Assert.Equal(posYAvant -1 , jeu.TetrinoCourant.PositionOrigine.y);
+        Assert.Equal(2, jeu.TetrinoCourant.Indice);
+        }
+
+    [Fact]
+
+    /**test la méthode RotationGauchequi se trouve dans la class
+    Tetrino pour une barre Horizontale*/
+    public void TestRotationGaucheBarreHorizontaale()    {
+        JeuTetris jeu = new JeuTetris();
+        jeu.Demarrer();
+        jeu.TetrinoCourant.Indice = 1;
+        int posXAvant = jeu.TetrinoCourant.PositionOrigine.x;
+        int posYAvant = jeu.TetrinoCourant.PositionOrigine.y;
+     
+        jeu.TetrinoCourant.RotationGauche();
+        Assert.Equal(posXAvant , jeu.TetrinoCourant.PositionOrigine.x);
+        Assert.Equal(posYAvant -1 , jeu.TetrinoCourant.PositionOrigine.y);
+        Assert.Equal(2, jeu.TetrinoCourant.Indice);
+        }
+
+        [Fact]
+        /**test la méthode RotationGauche qui se trouve dans la class
+    Tetrino pour une barre Verticale*/
+    public void TestRotationGaucheBarreVerticale()    {
+        JeuTetris jeu = new JeuTetris();
+        jeu.Demarrer();
+        jeu.TetrinoCourant.Indice = 2;
+        int posXAvant = jeu.TetrinoCourant.PositionOrigine.x;
+        int posYAvant = jeu.TetrinoCourant.PositionOrigine.y;
+     
+        jeu.TetrinoCourant.RotationGauche();
+        Assert.Equal(posXAvant -1, jeu.TetrinoCourant.PositionOrigine.x);
+        Assert.Equal(posYAvant +1 , jeu.TetrinoCourant.PositionOrigine.y);
+        Assert.Equal(1, jeu.TetrinoCourant.Indice);
+        }
+
+    [Fact]
+        /**test la méthode RotationDroite qui se trouve dans la class
+    Tetrino pour une barre Verticale*/
+    public void TestRotationDroiteBarreVerticale()    {
+        JeuTetris jeu = new JeuTetris();
+        jeu.Demarrer();
+        jeu.TetrinoCourant.Indice = 2;
+        int posXAvant = jeu.TetrinoCourant.PositionOrigine.x;
+        int posYAvant = jeu.TetrinoCourant.PositionOrigine.y;
+     
+        jeu.TetrinoCourant.RotationGauche();
+        Assert.Equal(posXAvant -1, jeu.TetrinoCourant.PositionOrigine.x);
+        Assert.Equal(posYAvant +1 , jeu.TetrinoCourant.PositionOrigine.y);
+        Assert.Equal(1, jeu.TetrinoCourant.Indice);
+        }
 }
