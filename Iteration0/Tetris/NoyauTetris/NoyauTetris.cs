@@ -91,12 +91,17 @@ public class Tetrino
         }
         return resultat;
     }
-    /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position choisie */
+    /**Met à jour le Tetrino avec un indice (forme) et couleur aléatoires et une position aléatoire */
     public static Tetrino NouveauTetrino()
     {
         int indice = rand.Next(TetrinosTab.GetLength(0));
         TetrinoCouleur Couleur = CouleursTetrinos[rand.Next(CouleursTetrinos.Length)];
-        Position position = new Position(0,0);
+        int x_Max = 0;
+        for(int i = 0; i < TetrinosTab[indice].Length; i++)
+        {
+            if(TetrinosTab[indice][i].x > x_Max) x_Max = TetrinosTab[indice][i].x;
+        }
+        Position position = new Position(rand.Next(JeuTetris.LargeurGrille - x_Max),0);
         return new Tetrino(indice, position, Couleur);
     }
 
