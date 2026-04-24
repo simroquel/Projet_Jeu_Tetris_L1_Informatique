@@ -99,6 +99,8 @@ public class Tetrino
         Position position = new Position(0,0);
         return new Tetrino(indice, position, Couleur);
     }
+
+     /**Effectue une rotation à Droite*/
   public void RotationDroite()
     {
         if (Indice == 1)
@@ -117,20 +119,21 @@ public class Tetrino
             return;
         }
     }
+     /**Effectue une rotation à Gauche*/
 
     public void RotationGauche()
     {
         if (Indice == 1)
         {
-            PositionOrigine.x += 1;
-            PositionOrigine.y -=1;
+            PositionOrigine.x -= 1;
+            PositionOrigine.y +=1;
             Indice = 2;
             return;
         }  
         if (Indice == 2)
         {
-            PositionOrigine.x -=1;
-            PositionOrigine.y += 1;
+            PositionOrigine.x +=1;
+            PositionOrigine.y -= 1;
             Indice = 1;
             return;
         }
@@ -283,6 +286,10 @@ public class JeuTetris
             TetrinoCourant.PositionOrigine.DeplacerBas();
         }    
     }
+    /**Stock la position du Tetrino Courant dans un tableau 
+    Met à jour la forme du Tetrino avec RotationDroite()
+    Si le Tetrino n'est pas dans la grille, il recupere sa position stocké dans le tableau ancienne position
+    et donc ne fera pas une Rotation à Droite*/
 
     public void RotationDroite()
     {
@@ -306,6 +313,12 @@ public class JeuTetris
             }
         }
     }
+
+
+     /**Stock la position du Tetrino Courant dans un tableau 
+    Met à jour la forme du Tetrino avec RotationGauche()
+    Si le Tetrino n'est pas dans la grille, il recupere sa position stocké dans le tableau ancienne position
+    et donc ne fera pas une Rotation à Gauche*/
 public void RotationGauche()
     {
         int ancienneIndice = this.TetrinoCourant.Indice;
