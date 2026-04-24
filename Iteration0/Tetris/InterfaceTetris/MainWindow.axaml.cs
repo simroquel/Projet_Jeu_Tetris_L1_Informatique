@@ -84,6 +84,7 @@ Efface le canvas et redessine le cadre ainsi que le Tetrino courant.
     {
         TetrisCanvas.Children.Clear();
         DessinerCadre(); 
+        /** Définit la position du tetrino */
         Position[] positionsDuTetrino = Jeu.TetrinoCourant.Positions();
         foreach (Position p in positionsDuTetrino)
         {
