@@ -172,12 +172,17 @@ public class JeuTetris
     public void Gauche()
     {
         Position[] positions = TetrinoCourant.Positions();
+        //Test si un carré est dans la grille
+        bool EstDansLaGrille(Position p)
+        {
+            return p.x >= 0 && p.x < LargeurGrille && p.y >= 0 && p.y < HauteurGrille;
+        }
         if(TetrinoCourant.PositionOrigine.x > 0)
         {
             foreach (Position p in positions)
             {  
                 //Ne déplace pas à gauche si il y a  déja un tetrino figé
-                if(p.y < 0 || Grille[p.x - 1, p.y] != TetrinoCouleur.blanc)
+                if(EstDansLaGrille(p) == false || Grille[p.x - 1, p.y] != TetrinoCouleur.blanc)
                 {
                     return;
                 }
@@ -190,6 +195,11 @@ public class JeuTetris
     public void Droite()
     {
         Position[] positions = TetrinoCourant.Positions();
+        //Test si un carré est dans la grille
+        bool EstDansLaGrille(Position p)
+        {
+            return p.x >= 0 && p.x < LargeurGrille && p.y >= 0 && p.y < HauteurGrille;
+        }
         //Vérifie la position de chaque carrée du Tetrino pour savoir si le déplacement est possible
         foreach (Position p in positions)
         {
@@ -197,8 +207,12 @@ public class JeuTetris
             {
                 return;
             }
+            if (p.y < 0)
+            {
+                continue;
+            }
             //Ne déplace pas à droite si il y a  déja un tetrino figé
-            if(p.y < 0 || Grille[p.x + 1, p.y] != TetrinoCouleur.blanc)
+            if(EstDansLaGrille(p) == false || Grille[p.x + 1, p.y] != TetrinoCouleur.blanc)
             {
                 return;
             }
