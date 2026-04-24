@@ -111,34 +111,7 @@ public class TestPosition()
         jeu.Bas();
         Assert.Equal(posYAvant + 1, jeu.TetrinoCourant.PositionOrigine.y);
      } 
-[Fact]
-    /**test la méthode RotationDroite en bas a l'unité*/
 
-    // Mahhdi: J'ai coommencé à faire le test pas eu le temps de finir, mais je pense que c'est ce modele à suivre
-    // Si vous faites d'autre test qui marchent en procédant autrement, tant que ça marche c'est parfait 
-    public void TestRotationDroite()    {
-        JeuTetris jeu = new JeuTetris();
-        jeu.Demarrer();
-        int indice = jeu.TetrinoCourant.Indice;
-        int posXAvant = jeu.TetrinoCourant.PositionOrigine.x;
-        int posYAvant = jeu.TetrinoCourant.PositionOrigine.y;
-        
-        if (indice == 1)
-        {   
-            jeu.RotationDroite();
-            Assert.Equal(posXAvant, jeu.TetrinoCourant.PositionOrigine.x);
-            Assert.Equal(posYAvant , jeu.TetrinoCourant.PositionOrigine.y);
-            Assert.Equal(2, indice);
-        }
-        if (indice == 2)
-        {   
-            jeu.RotationDroite();
-            Assert.Equal(posXAvant , jeu.TetrinoCourant.PositionOrigine.x);
-            Assert.Equal(posYAvant + 1, jeu.TetrinoCourant.PositionOrigine.y);
-            Assert.Equal(1, indice);
-        }
-        
-     }
  [Fact]
     /**test la méthode RotationDroite qui se trouve dans la class
     Tetrino pour une barre Horizontale*/
