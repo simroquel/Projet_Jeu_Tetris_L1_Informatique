@@ -2,7 +2,7 @@
  * Documentation générale du fichier : Gère l'interface graphique du jeu Tetris.
  * Ce fichier assure la liaison entre la vue (Avalonia) et la logique métier.
  * * @author Groupe 3MS
- * @version 2
+ * @version 4
  *****************************************/
 
 using Avalonia;
